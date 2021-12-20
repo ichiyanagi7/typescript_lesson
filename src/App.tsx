@@ -1,6 +1,9 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Data from "./data.json";
+
+type USERS = typeof Data;
 
 const name = "hello";
 
@@ -85,6 +88,80 @@ const SPORTS = {
 
 let keySports: keyof typeof SPORTS;
 keySports = "baseball";
+
+// enum
+enum OS {
+  Windows,
+  Mac,
+  Linux,
+}
+
+interface PC {
+  id: number;
+  OSType: OS;
+}
+
+const PC1: PC = {
+  id: 1,
+  OSType: OS.Windows,
+};
+
+const PC2: PC = {
+  id: 2,
+  OSType: OS.Mac,
+};
+
+//型の互換性
+const comp1 = "test";
+let comp2: string = comp1;
+
+let comp3: string = "test";
+
+let funcComp1 = (x: number) => {};
+let funcComp2 = (x: string) => {};
+
+//ジェネリックス
+interface GEN<T> {
+  item: T;
+}
+const gen0: GEN<string> = { item: "hello" };
+const gen1: GEN = { item: "hello" };
+const gen2: GEN<number> = { item: 12 };
+
+//デフォルトを設定する
+interface GEN1<T = string> {
+  item: T;
+}
+const gen3: GEN1 = { item: "hello" };
+
+interface GEN2<T extends string | number> {
+  item: T;
+}
+const gen4: GEN2<boolean> = { item: true };
+
+function funcGen<T>(props: T) {
+  return { item: props };
+}
+const gen6 = funcGen<string>("test");
+const gen7 = funcGen<string | null>(null);
+
+function funcGen1<T extends string | null>(props: T) {
+  return { value: props };
+}
+const gen8 = funcGen1("hello");
+const gen9 = funcGen1(12);
+
+interface Props {
+  price: number;
+}
+function funcGen3<T extends Props>(props: T) {
+  return { value: props.price };
+}
+const gen10 = funcGen3({ price: 100 });
+
+const funcGen4 = <T extends Props>(props: T) => {
+  return { value: props.price };
+};
 
 function App() {
   return (
