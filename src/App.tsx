@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Data from "./data.json";
+import TestComponent from "./TestComponent";
 
 type USERS = typeof Data;
 
@@ -125,7 +126,6 @@ interface GEN<T> {
   item: T;
 }
 const gen0: GEN<string> = { item: "hello" };
-const gen1: GEN = { item: "hello" };
 const gen2: GEN<number> = { item: 12 };
 
 //デフォルトを設定する
@@ -137,7 +137,6 @@ const gen3: GEN1 = { item: "hello" };
 interface GEN2<T extends string | number> {
   item: T;
 }
-const gen4: GEN2<boolean> = { item: true };
 
 function funcGen<T>(props: T) {
   return { item: props };
@@ -149,7 +148,6 @@ function funcGen1<T extends string | null>(props: T) {
   return { value: props };
 }
 const gen8 = funcGen1("hello");
-const gen9 = funcGen1(12);
 
 interface Props {
   price: number;
@@ -163,12 +161,14 @@ const funcGen4 = <T extends Props>(props: T) => {
   return { value: props.price };
 };
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <header className="App-header">
+        <TestComponent text="hello from App" />
+      </header>
     </div>
   );
-}
+};
 
 export default App;
